@@ -84,10 +84,18 @@
       <button>End Timer</button>
       <button>Console Trace</button>
       <button>Trigger a Global Error</button>
+ <!---<button>Catch This!</button> -->
     </section>
   </main>
-
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script>
+  window.TrackJS && TrackJS.install({ 
+    token: "c3f23e7d367e4923b23faeb4c9cad36e"
+    // for more configuration options, see https://docs.trackjs.com
+  });
+  </script>
+  <script>
+    
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -99,9 +107,120 @@
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
-
+    console.log(errorBtns.length);
     // Start your code here
-    // You may move this JS to another file if you wish
+    //Error
+    let log_button = errorBtns[0];
+      log_button.addEventListener('click', () => {
+      console.log("I'm a log!");
+    });
+    //Error
+    let error_button = errorBtns[1];
+      error_button.addEventListener('click', () => {
+      console.error("I'm an error!");
+    });
+    //Count
+    let count_button = errorBtns[2];
+    var count = 0;
+      count_button.addEventListener('click', () => {
+      console.log("Current count: " + count);
+      count += 1;
+    });
+    //Warn
+    let warn_button = errorBtns[3];
+      warn_button.addEventListener('click', () => {
+      console.warn("I'm a warning!");
+    });
+    //Assert
+    let assert_button = errorBtns[4];
+      assert_button.addEventListener('click', () => {
+      console.assert(count == count + 1,"This will never be true!");
+    });
+    //Clear
+    let clear_button = errorBtns[5];
+      clear_button.addEventListener('click', () => {
+      console.clear();
+    });
+    //Dir
+    let dir_button = errorBtns[6];
+      dir_button.addEventListener('click', () => {
+       console.dir(error_button);
+    });
+    //dirxml
+    let dirxml_button = errorBtns[7];
+    dirxml_button.addEventListener('click', () => {
+      const button_host = document.getElementById('error-btns');
+      console.dirxml(button_host);
+    });
+    //Group Start
+    let group_start_button = errorBtns[8];
+    group_start_button.addEventListener('click', () => {
+      console.group('Totally legit group');
+    });
+    //Group End
+    let group_end_button = errorBtns[9];
+    group_end_button.addEventListener('click', () => {
+      console.groupEnd();
+    });
+    //Console Table
+    let vals = ["I just", "want to", "let you", "know you're", "mine"];
+    let table_button = errorBtns[10];
+    table_button.addEventListener('click', () => {
+      console.table(vals);
+    });
+    //Start Timer
+    let start_timer_button = errorBtns[11];
+    start_timer_button.addEventListener('click', () => {
+      console.time('the one timer');
+    });
+    //End timer
+    let end_timer_button = errorBtns[12];
+    end_timer_button.addEventListener('click', () => {
+      console.timeEnd('the one timer');
+    });
+    //Console Trace
+    function real_function_iswear() {
+      console.trace("in da func");
+    }
+    let trace_button = errorBtns[13];
+    trace_button.addEventListener('click', () => {
+      real_function_iswear();
+    });
+    //Global Error
+    let global_error_button = errorBtns[14];
+    global_error_button.addEventListener('click', () => {
+      try {
+      throw new Error("Totally true error guys");
+      } catch (err) {
+        console.log("Caught:", err.message);
+      }
+    });
+    // Try Catch and throwing
+
+
+    class NonNumericalError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = "Nonnumerical error";
+      }
+    }
+
+    let maybe_a_number_or_uuid = "0";
+
+    try {
+        let next_uuid = maybe_a_number_or_uid + 1;  
+
+    } catch (err) {
+        console.error("Caught:", err.message);
+    } finally {
+        console.log("Perhaps check your spelling");
+    }
+
+    if (maybe_a_number_or_uuid !== 0) {
+      throw new NonNumericalError("what the heck dude check your types");
+    }
+
+
   </script>
 </body>
 
